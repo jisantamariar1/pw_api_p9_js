@@ -1,5 +1,8 @@
 package uce.edu.web.api.application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import uce.edu.web.api.application.representations.VehiculoRepresentation;
@@ -16,9 +19,18 @@ public class VehiculoService {
         this.vehiculoRepository.persist(vehiculo);
     }
 
+    public List<VehiculoRepresentation> getAllVehiculos() {
+        List<Vehiculo> vehiculos = this.vehiculoRepository.listAll();
+        List<VehiculoRepresentation> vr = new ArrayList<>();
+        for (Vehiculo v : vehiculos) {
+            vr.add(this.mapperToVehiculoRepresentation(v));
+        }
+        return vr;
+    }
+
     public VehiculoRepresentation mapperToVehiculoRepresentation(Vehiculo vehiculo) {
         VehiculoRepresentation representation = new VehiculoRepresentation();
-        representation.id = vehiculo.id;
+        
         representation.marca = vehiculo.marca;
         representation.modelo = vehiculo.modelo;
         representation.chasis = vehiculo.chasis;
@@ -29,7 +41,7 @@ public class VehiculoService {
 
     public Vehiculo mapperToVehiculo(VehiculoRepresentation representation) {
         Vehiculo vehiculo = new Vehiculo();
-        vehiculo.id = representation.id;
+       
         vehiculo.marca = representation.marca;
         vehiculo.modelo = representation.modelo;
         vehiculo.chasis = representation.chasis;

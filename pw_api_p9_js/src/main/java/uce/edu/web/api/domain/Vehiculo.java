@@ -18,8 +18,8 @@ public class Vehiculo extends PanacheEntityBase {
     public String marca;
     public String modelo;
     public String chasis;
-    public java.util.Date fechaFabricacion;
-    public java.util.Date fechaMatriculacion;
+    public String fechaFabricacion;
+    public String fechaMatriculacion;
 
     public Vehiculo() {
     }
